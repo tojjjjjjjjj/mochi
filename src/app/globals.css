@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFBF5;
+  --foreground: #2D2424;
+  --mochi-cream: #FFFBF5;
+  --mochi-warm: #FFF5E9;
+  --mochi-card: #FFFFFF;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-dm-sans);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Smooth transitions globally */
+*,
+*::before,
+*::after {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mochi card hover lift */
+.mochi-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mochi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Toast slide-up animation */
+@keyframes toast-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px) translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+}
+
+@keyframes toast-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) translateX(-50%);
+  }
+}
+
+.toast-enter {
+  animation: toast-slide-up 0.3s ease forwards;
+}
+
+.toast-exit {
+  animation: toast-fade-out 0.25s ease forwards;
+}
+
+/* Bouncy press animation for buttons */
+.btn-bouncy:active {
+  transform: scale(0.95);
+}
+
+.btn-bouncy {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
