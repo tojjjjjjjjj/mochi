@@ -70,7 +70,7 @@ Include "Designer's Notes" after each section explaining the reasoning behind yo
     flavor: 'Design',
     flavor_emoji: '🟦',
     tags: ['ui-design', 'ux', 'apple-hig', 'web-design', 'wireframes'],
-    compatible_with: ['claude', 'chatgpt', 'gemini'],
+    compatible_with: ['claude', 'chatgpt', 'gemini', 'copilot'],
     is_house_special: true,
     preview_description:
       'A detailed UI design plan with screen layouts, component specs, accessibility notes, and micro-interactions for your app.',
@@ -152,7 +152,7 @@ Format everything as a clean, publishable design system document. Be specific �
     flavor: 'Design',
     flavor_emoji: '🟦',
     tags: ['design-system', 'components', 'tokens', 'brand-guidelines'],
-    compatible_with: ['claude', 'chatgpt', 'gemini'],
+    compatible_with: ['claude', 'chatgpt', 'gemini', 'copilot'],
     is_house_special: true,
     preview_description:
       'A full design system with colors, typography, spacing, 20+ components, patterns, and developer-ready tokens.',
@@ -372,7 +372,7 @@ Write this so a junior designer could follow it step by step and build the desig
     flavor: 'Design',
     flavor_emoji: '🟦',
     tags: ['figma', 'auto-layout', 'components', 'design-ops', 'prototyping'],
-    compatible_with: ['claude', 'chatgpt', 'gemini'],
+    compatible_with: ['claude', 'chatgpt', 'gemini', 'copilot'],
     is_house_special: true,
     preview_description:
       'A step-by-step Figma build guide with auto-layout specs, component architecture, design tokens, and responsive setup.',
@@ -1912,7 +1912,7 @@ Present this clearly enough that the decision maker can review it in 15 minutes 
     flavor: 'Strategy',
     flavor_emoji: '🟪',
     tags: ['decision-making', 'frameworks', 'analysis', 'risk-assessment', 'strategy'],
-    compatible_with: ['claude', 'chatgpt', 'gemini'],
+    compatible_with: ['claude', 'chatgpt', 'gemini', 'copilot'],
     is_house_special: true,
     preview_description:
       'A structured decision analysis with weighted scoring matrix, risk assessment, stakeholder impact, recommendation, and pre-mortem.',
@@ -2257,7 +2257,7 @@ Explain everything like you're talking to a smart friend over coffee — clearly
     flavor: 'Productivity',
     flavor_emoji: '🟥',
     tags: ['learning', 'education', 'study-guide', 'self-improvement', 'research'],
-    compatible_with: ['claude', 'chatgpt', 'gemini'],
+    compatible_with: ['claude', 'chatgpt', 'gemini', 'copilot'],
     is_house_special: true,
     preview_description:
       'A complete learning guide with topic map, key concepts explained with analogies, exercises, resources, and a week-by-week study plan.',
