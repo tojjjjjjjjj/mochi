@@ -46,7 +46,8 @@ export default function SearchBar({
     <div className="relative w-full max-w-md">
       {/* Search icon */}
       <svg
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
+        style={{ color: "var(--label-tertiary)" }}
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -65,9 +66,20 @@ export default function SearchBar({
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
-        className="w-full pl-11 pr-10 py-3 rounded-full bg-white border border-gray-200 text-sm text-[#2D2424] placeholder:text-gray-400 outline-none focus:border-gray-300 focus:ring-2 focus:ring-gray-100"
         style={{
-          boxShadow: "0 1px 4px rgba(0, 0, 0, 0.03)",
+          width: "100%",
+          paddingLeft: 44,
+          paddingRight: 44,
+          paddingTop: 12,
+          paddingBottom: 12,
+          borderRadius: "9999px",
+          backgroundColor: "var(--bg-secondary)",
+          border: "1px solid rgba(60, 60, 67, 0.06)",
+          fontSize: 15,
+          color: "var(--label-primary)",
+          outline: "none",
+          boxShadow: "var(--elevation-1)",
+          minHeight: 44,
         }}
       />
 
@@ -75,8 +87,16 @@ export default function SearchBar({
       {value && (
         <button
           onClick={handleClear}
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 cursor-pointer"
+          className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center cursor-pointer"
           aria-label="Clear search"
+          style={{
+            width: 24,
+            height: 24,
+            borderRadius: "9999px",
+            backgroundColor: "var(--bg-secondary)",
+            color: "var(--label-tertiary)",
+            border: "none",
+          }}
         >
           <svg
             className="w-3.5 h-3.5"

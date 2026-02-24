@@ -1,12 +1,28 @@
 export const FLAVORS = [
-  { name: 'Design', slug: 'design', emoji: '🟦', color: '#6366f1', bgLight: '#eef2ff', description: 'UI/UX, visual design, design systems' },
-  { name: 'Development', slug: 'development', emoji: '🟧', color: '#f97316', bgLight: '#fff7ed', description: 'Frontend, backend, architecture' },
-  { name: 'Marketing', slug: 'marketing', emoji: '🟨', color: '#eab308', bgLight: '#fefce8', description: 'Growth, social, launch strategy' },
-  { name: 'Writing', slug: 'writing', emoji: '🟩', color: '#22c55e', bgLight: '#f0fdf4', description: 'Copywriting, content, documentation' },
-  { name: 'Strategy', slug: 'strategy', emoji: '🟪', color: '#a855f7', bgLight: '#faf5ff', description: 'Business, product, planning' },
-  { name: 'Productivity', slug: 'productivity', emoji: '🟥', color: '#ef4444', bgLight: '#fef2f2', description: 'Workflows, automation, organization' },
-  { name: 'Branding', slug: 'branding', emoji: '🩷', color: '#ec4899', bgLight: '#fdf2f8', description: 'Identity, naming, brand voice' },
+  { name: 'Design', slug: 'design', emoji: '🟦', color: '#B8A9E8', bgLight: '#F3F0FF', description: 'UI/UX, visual design, design systems' },
+  { name: 'Development', slug: 'development', emoji: '🟧', color: '#FFB088', bgLight: '#FFF3EC', description: 'Frontend, backend, architecture' },
+  { name: 'Marketing', slug: 'marketing', emoji: '🟨', color: '#FFE066', bgLight: '#FFFCEB', description: 'Growth, social, launch strategy' },
+  { name: 'Writing', slug: 'writing', emoji: '🟩', color: '#7ED6A8', bgLight: '#EDFAF3', description: 'Copywriting, content, documentation' },
+  { name: 'Strategy', slug: 'strategy', emoji: '🟪', color: '#7EC8E3', bgLight: '#ECF7FC', description: 'Business, product, planning' },
+  { name: 'Productivity', slug: 'productivity', emoji: '🟥', color: '#FF8A80', bgLight: '#FFF0EF', description: 'Workflows, automation, organization' },
+  { name: 'Branding', slug: 'branding', emoji: '🩷', color: '#FF6B9D', bgLight: '#FFF0F5', description: 'Identity, naming, brand voice' },
 ] as const
+
+export const BRAND = {
+  pink: '#FF6B9D',
+  peach: '#FFB088',
+  mint: '#7ED6A8',
+  lavender: '#B8A9E8',
+  sky: '#7EC8E3',
+  lemon: '#FFE066',
+  coral: '#FF8A80',
+  labelPrimary: '#1D1D1F',
+  labelSecondary: '#6E6E73',
+  labelTertiary: '#AEAEB2',
+  bgPrimary: '#FFFFFF',
+  bgSecondary: '#F5F5F7',
+  bgTertiary: '#FBFBFD',
+} as const
 
 export type FlavorType = typeof FLAVORS[number]
 

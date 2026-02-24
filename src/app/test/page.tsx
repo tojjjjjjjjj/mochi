@@ -1,6 +1,5 @@
 "use client";
 
-import { ToastProvider } from "@/components/ui/toast";
 import MochiCard from "@/components/ui/mochi-card";
 import FeedButton from "@/components/ui/feed-button";
 import FlavorBadge from "@/components/ui/flavor-badge";
@@ -121,82 +120,137 @@ const mockMochis: Mochi[] = [
 
 export default function TestPage() {
   return (
-    <ToastProvider>
-      <div className="min-h-screen p-8 max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-3xl font-bold mb-2">Mochi Design System</h1>
-          <p className="text-gray-500">Component test page for visual verification</p>
-        </div>
-
-        {/* SearchBar */}
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">SearchBar</h2>
-          <SearchBar onSearch={(q) => console.log("Search:", q)} />
-        </section>
-
-        {/* FlavorBadges */}
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">FlavorBadges</h2>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <FlavorBadge flavor="design" size="md" />
-            <FlavorBadge flavor="development" size="md" />
-            <FlavorBadge flavor="marketing" size="md" />
-            <FlavorBadge flavor="writing" size="md" />
-            <FlavorBadge flavor="strategy" size="md" />
-            <FlavorBadge flavor="productivity" size="md" />
-            <FlavorBadge flavor="branding" size="md" />
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <FlavorBadge flavor="design" size="sm" />
-            <FlavorBadge flavor="development" size="sm" />
-            <FlavorBadge flavor="marketing" size="sm" />
-            <FlavorBadge flavor="writing" size="sm" />
-            <FlavorBadge flavor="strategy" size="sm" />
-            <FlavorBadge flavor="productivity" size="sm" />
-            <FlavorBadge flavor="branding" size="sm" />
-          </div>
-        </section>
-
-        {/* AgentBadges */}
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">AgentBadges</h2>
-          <div className="flex flex-wrap gap-2">
-            <AgentBadge agentId="claude" />
-            <AgentBadge agentId="chatgpt" />
-            <AgentBadge agentId="gemini" />
-            <AgentBadge agentId="codex" />
-            <AgentBadge agentId="copilot" />
-          </div>
-        </section>
-
-        {/* FeedButton */}
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">FeedButton</h2>
-          <div className="flex flex-wrap gap-4">
-            <FeedButton
-              content="You are an expert UX critic. Roast this landing page..."
-              type="prompt"
-              slug="landing-page-roast"
-            />
-            <FeedButton
-              content="You are a senior staff engineer..."
-              type="skill"
-              slug="code-review-sensei"
-            />
-          </div>
-        </section>
-
-        {/* MochiCards Grid */}
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">MochiCards</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {mockMochis.map((mochi) => (
-              <MochiCard key={mochi.id} mochi={mochi} />
-            ))}
-          </div>
-        </section>
+    <div className="min-h-screen max-w-5xl mx-auto" style={{ padding: "40px 20px" }}>
+      {/* Header */}
+      <div style={{ marginBottom: 48 }}>
+        <h1
+          style={{
+            fontSize: 34,
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            color: "var(--label-primary)",
+            marginBottom: 8,
+          }}
+        >
+          Mochi Design System
+        </h1>
+        <p style={{ fontSize: 15, color: "var(--label-secondary)" }}>
+          Component test page for visual verification
+        </p>
       </div>
-    </ToastProvider>
+
+      {/* SearchBar */}
+      <section style={{ marginBottom: 48 }}>
+        <h2
+          style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: "var(--label-primary)",
+            marginBottom: 16,
+          }}
+        >
+          SearchBar
+        </h2>
+        <SearchBar onSearch={(q) => console.log("Search:", q)} />
+      </section>
+
+      {/* FlavorBadges */}
+      <section style={{ marginBottom: 48 }}>
+        <h2
+          style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: "var(--label-primary)",
+            marginBottom: 16,
+          }}
+        >
+          FlavorBadges
+        </h2>
+        <div className="flex flex-wrap" style={{ gap: 12, marginBottom: 16 }}>
+          <FlavorBadge flavor="design" size="md" />
+          <FlavorBadge flavor="development" size="md" />
+          <FlavorBadge flavor="marketing" size="md" />
+          <FlavorBadge flavor="writing" size="md" />
+          <FlavorBadge flavor="strategy" size="md" />
+          <FlavorBadge flavor="productivity" size="md" />
+          <FlavorBadge flavor="branding" size="md" />
+        </div>
+        <div className="flex flex-wrap" style={{ gap: 8 }}>
+          <FlavorBadge flavor="design" size="sm" />
+          <FlavorBadge flavor="development" size="sm" />
+          <FlavorBadge flavor="marketing" size="sm" />
+          <FlavorBadge flavor="writing" size="sm" />
+          <FlavorBadge flavor="strategy" size="sm" />
+          <FlavorBadge flavor="productivity" size="sm" />
+          <FlavorBadge flavor="branding" size="sm" />
+        </div>
+      </section>
+
+      {/* AgentBadges */}
+      <section style={{ marginBottom: 48 }}>
+        <h2
+          style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: "var(--label-primary)",
+            marginBottom: 16,
+          }}
+        >
+          AgentBadges
+        </h2>
+        <div className="flex flex-wrap" style={{ gap: 8 }}>
+          <AgentBadge agentId="claude" />
+          <AgentBadge agentId="chatgpt" />
+          <AgentBadge agentId="gemini" />
+          <AgentBadge agentId="codex" />
+          <AgentBadge agentId="copilot" />
+        </div>
+      </section>
+
+      {/* FeedButton */}
+      <section style={{ marginBottom: 48 }}>
+        <h2
+          style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: "var(--label-primary)",
+            marginBottom: 16,
+          }}
+        >
+          FeedButton
+        </h2>
+        <div className="flex flex-wrap" style={{ gap: 16 }}>
+          <FeedButton
+            content="You are an expert UX critic. Roast this landing page..."
+            type="prompt"
+            slug="landing-page-roast"
+          />
+          <FeedButton
+            content="You are a senior staff engineer..."
+            type="skill"
+            slug="code-review-sensei"
+          />
+        </div>
+      </section>
+
+      {/* MochiCards Grid */}
+      <section style={{ marginBottom: 48 }}>
+        <h2
+          style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: "var(--label-primary)",
+            marginBottom: 16,
+          }}
+        >
+          MochiCards
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 20 }}>
+          {mockMochis.map((mochi) => (
+            <MochiCard key={mochi.id} mochi={mochi} />
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }

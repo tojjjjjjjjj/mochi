@@ -28,9 +28,17 @@ export default function FeedButton({ content, type, slug }: FeedButtonProps) {
   return (
     <button
       onClick={handleClick}
-      className="btn-bouncy inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#2D2424] text-white font-semibold text-sm cursor-pointer hover:bg-[#3D3434] active:scale-95"
+      className="btn-bouncy inline-flex items-center justify-center gap-2 cursor-pointer"
       style={{
-        boxShadow: "0 4px 14px rgba(45, 36, 36, 0.25)",
+        background: "linear-gradient(135deg, #FF6B9D, #FFB088)",
+        color: "#FFFFFF",
+        fontWeight: 600,
+        fontSize: 15,
+        borderRadius: "9999px",
+        padding: "12px 32px",
+        border: "none",
+        minHeight: 44,
+        boxShadow: "0 4px 14px rgba(255, 107, 157, 0.3)",
       }}
     >
       <span aria-hidden="true">

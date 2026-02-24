@@ -10,7 +10,18 @@ export default function AgentBadge({ agentId }: AgentBadgeProps) {
   if (!agent) return null;
 
   return (
-    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-500">
+    <span
+      className="inline-flex items-center"
+      style={{
+        gap: 4,
+        padding: "4px 10px",
+        borderRadius: "9999px",
+        fontSize: 12,
+        fontWeight: 500,
+        backgroundColor: "var(--bg-secondary)",
+        color: "var(--label-secondary)",
+      }}
+    >
       <span aria-hidden="true">{agent.icon}</span>
       {agent.name}
     </span>

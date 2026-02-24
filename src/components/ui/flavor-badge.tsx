@@ -11,18 +11,23 @@ export default function FlavorBadge({ flavor, size = "md" }: FlavorBadgeProps) {
 
   if (!flavorData) return null;
 
-  const sizeClasses =
-    size === "sm"
-      ? "px-2 py-0.5 text-xs gap-1"
-      : "px-3 py-1 text-sm gap-1.5";
+  const isSmall = size === "sm";
 
   return (
     <Link
       href={`/flavor/${flavorData.slug}`}
-      className={`inline-flex items-center rounded-full font-medium ${sizeClasses}`}
+      className="inline-flex items-center"
       style={{
+        borderRadius: "9999px",
+        fontSize: isSmall ? 12 : 14,
+        fontWeight: 600,
+        padding: isSmall ? "2px 10px" : "4px 14px",
+        gap: isSmall ? 4 : 6,
         backgroundColor: flavorData.bgLight,
         color: flavorData.color,
+        minHeight: 44,
+        display: "inline-flex",
+        alignItems: "center",
       }}
     >
       <span aria-hidden="true">{flavorData.emoji}</span>

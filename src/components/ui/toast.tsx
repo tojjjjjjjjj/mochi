@@ -51,10 +51,15 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             key={toast.id}
             className={`${
               toast.exiting ? "toast-exit" : "toast-enter"
-            } pointer-events-auto px-5 py-3 rounded-full bg-white text-[#2D2424] font-medium text-sm`}
+            } pointer-events-auto`}
             style={{
-              boxShadow:
-                "0 8px 24px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06)",
+              padding: "12px 24px",
+              borderRadius: "9999px",
+              backgroundColor: "var(--bg-primary)",
+              color: "var(--label-primary)",
+              fontWeight: 500,
+              fontSize: 14,
+              boxShadow: "var(--elevation-3)",
               position: "relative",
               left: "50%",
               transform: "translateX(-50%)",

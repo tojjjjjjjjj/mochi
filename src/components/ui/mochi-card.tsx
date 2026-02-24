@@ -14,28 +14,66 @@ export default function MochiCard({ mochi }: MochiCardProps) {
 
   return (
     <Link href={`/mochi/${mochi.slug}`} className="block">
-      <div className="mochi-card relative bg-white rounded-2xl p-5 cursor-pointer border border-gray-100"
+      <div
+        className="mochi-card relative bg-white cursor-pointer"
         style={{
-          boxShadow: "0 2px 12px rgba(0, 0, 0, 0.04), 0 1px 4px rgba(0, 0, 0, 0.02)",
+          borderRadius: "var(--radius-xl)",
+          padding: "24px",
+          boxShadow: "var(--elevation-1)",
+          borderTop: `3px solid ${flavor?.color ?? "var(--label-tertiary)"}`,
         }}
       >
         {/* House Special Badge */}
         {mochi.is_house_special && (
-          <span className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-600 border border-amber-200">
+          <span
+            className="absolute inline-flex items-center gap-1 font-semibold"
+            style={{
+              top: 16,
+              right: 16,
+              padding: "2px 10px",
+              borderRadius: "9999px",
+              fontSize: 12,
+              backgroundColor: "#FFFCEB",
+              color: "#D4A017",
+              border: "1px solid #FFE066",
+            }}
+          >
             <span aria-hidden="true">&#9733;</span> House Special
           </span>
         )}
 
         {/* Flavor Emoji + Title */}
-        <div className="flex items-start gap-3 mb-2">
-          <span className="text-2xl leading-none mt-0.5" aria-hidden="true">
+        <div className="flex items-start gap-3" style={{ marginBottom: 12 }}>
+          <span className="leading-none" style={{ fontSize: 28, marginTop: 2 }} aria-hidden="true">
             {mochi.flavor_emoji}
           </span>
           <div className="min-w-0 flex-1">
-            <h3 className="font-bold text-base text-[#2D2424] leading-snug truncate">
+            <h3
+              style={{
+                fontWeight: 700,
+                fontSize: 22,
+                lineHeight: 1.27,
+                color: "var(--label-primary)",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
               {mochi.title}
             </h3>
-            <p className="text-sm text-gray-500 mt-0.5 line-clamp-2">
+            <p
+              style={{
+                fontSize: 15,
+                fontWeight: 400,
+                color: "var(--label-secondary)",
+                marginTop: 4,
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                lineHeight: 1.47,
+              }}
+            >
               {mochi.tagline}
             </p>
           </div>
@@ -44,10 +82,15 @@ export default function MochiCard({ mochi }: MochiCardProps) {
         {/* Flavor tag */}
         {flavor && (
           <span
-            className="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium mb-3"
+            className="inline-block"
             style={{
+              padding: "3px 12px",
+              borderRadius: "9999px",
+              fontSize: 14,
+              fontWeight: 600,
               backgroundColor: flavor.bgLight,
               color: flavor.color,
+              marginBottom: 16,
             }}
           >
             {flavor.emoji} {flavor.name}
@@ -55,12 +98,19 @@ export default function MochiCard({ mochi }: MochiCardProps) {
         )}
 
         {/* Bottom row: agents + feed count */}
-        <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-50">
+        <div
+          className="flex items-center justify-between"
+          style={{
+            paddingTop: 12,
+            marginTop: "auto",
+            borderTop: "1px solid rgba(60, 60, 67, 0.06)",
+          }}
+        >
           <div className="flex items-center gap-1">
             {compatibleAgents.map((agent) => (
               <span
                 key={agent.id}
-                className="text-sm"
+                style={{ fontSize: 15 }}
                 title={agent.name}
                 aria-label={agent.name}
               >
@@ -68,7 +118,13 @@ export default function MochiCard({ mochi }: MochiCardProps) {
               </span>
             ))}
           </div>
-          <span className="text-xs text-gray-400 font-medium">
+          <span
+            style={{
+              fontSize: 12,
+              fontWeight: 500,
+              color: "var(--label-tertiary)",
+            }}
+          >
             {mochi.feed_count.toLocaleString()} fed
           </span>
         </div>

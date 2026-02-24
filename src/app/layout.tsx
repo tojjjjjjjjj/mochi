@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import { ToastProvider } from "@/components/ui/toast";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 import "./globals.css";
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -22,10 +25,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} antialiased bg-[#FFFBF5] text-[#2D2424]`}
-        style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}
+        className={`${plusJakartaSans.variable} antialiased`}
       >
-        {children}
+        <ToastProvider>
+          <Header />
+          <main style={{ paddingTop: 48 }}>
+            {children}
+          </main>
+          <Footer />
+        </ToastProvider>
       </body>
     </html>
   );
