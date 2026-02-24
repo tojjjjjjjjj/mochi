@@ -12,15 +12,22 @@ export default function Image() {
       flexDirection: 'column',
       width: '100%',
       height: '100%',
-      background: 'white',
+      background: 'linear-gradient(135deg, #FFF0F5, #FFFFFF)',
       padding: '80px',
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
     }}>
       <div style={{
-        fontSize: 80,
-        marginBottom: 24,
+        width: 80,
+        height: 80,
+        borderRadius: 20,
+        background: 'linear-gradient(135deg, #FF6B9D, #FFB088)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 40,
+        marginBottom: 32,
       }}>🍡</div>
       <div style={{
         fontSize: 64,
@@ -35,7 +42,7 @@ export default function Image() {
       <div style={{
         fontSize: 24,
         fontWeight: 500,
-        color: '#6E6E73',
+        color: '#58585D',
       }}>
         mochi.market
       </div>

@@ -3,68 +3,56 @@ import MochiCard from "@/components/ui/mochi-card";
 import type { Mochi } from "@/types/database";
 
 type FeaturedMochisProps = {
-  mochis: Mochi[];
+  hottest: Mochi[];
+  houseSpecials: Mochi[];
+  fresh: Mochi[];
 };
 
-export function FeaturedMochis({ mochis }: FeaturedMochisProps) {
-  if (mochis.length === 0) {
-    return null;
-  }
+function Section({
+  eyebrow,
+  heading,
+  mochis,
+  browseHref,
+}: {
+  eyebrow: string;
+  heading: string;
+  mochis: Mochi[];
+  browseHref: string;
+}) {
+  if (mochis.length === 0) return null;
 
   return (
-    <section
-      style={{
-        maxWidth: 1120,
-        margin: "0 auto",
-        padding: "80px 20px",
-      }}
-    >
-      {/* Eyebrow */}
+    <div style={{ marginBottom: 64 }}>
       <p
         style={{
           fontSize: 13,
           fontWeight: 700,
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: "var(--brand-pink)",
+          color: "var(--pink-text)",
           marginBottom: 8,
         }}
       >
-        House Specials
+        {eyebrow}
       </p>
 
-      {/* Heading */}
       <h2
         style={{
-          fontSize: "clamp(32px, 5vw, 48px)",
+          fontSize: "clamp(28px, 4vw, 40px)",
           fontWeight: 800,
           letterSpacing: "-0.035em",
-          color: "var(--label-primary)",
+          color: "var(--t1)",
           lineHeight: 1.1,
-          marginBottom: 8,
+          marginBottom: 32,
         }}
       >
-        The sweetest mochis.
+        {heading}
       </h2>
 
-      {/* Subtitle */}
-      <p
-        style={{
-          fontSize: 19,
-          fontWeight: 500,
-          color: "var(--label-secondary)",
-          marginBottom: 48,
-          lineHeight: 1.47,
-        }}
-      >
-        Hand-picked. Taste-tested. Ready to feed.
-      </p>
-
-      {/* Grid */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
           gap: 20,
         }}
       >
@@ -73,17 +61,16 @@ export function FeaturedMochis({ mochis }: FeaturedMochisProps) {
         ))}
       </div>
 
-      {/* Browse all link */}
       <div
         className="flex justify-center"
-        style={{ marginTop: 48 }}
+        style={{ marginTop: 32 }}
       >
         <Link
-          href="/menu"
+          href={browseHref}
           style={{
             fontSize: 15,
             fontWeight: 600,
-            color: "var(--brand-pink)",
+            color: "var(--pink-text)",
             textDecoration: "none",
             minHeight: 44,
             display: "inline-flex",
@@ -93,6 +80,37 @@ export function FeaturedMochis({ mochis }: FeaturedMochisProps) {
           Browse all &rarr;
         </Link>
       </div>
+    </div>
+  );
+}
+
+export function FeaturedMochis({ hottest, houseSpecials, fresh }: FeaturedMochisProps) {
+  return (
+    <section
+      style={{
+        maxWidth: 1120,
+        margin: "0 auto",
+        padding: "60px 20px 20px",
+      }}
+    >
+      <Section
+        eyebrow="Hottest"
+        heading="Trending right now."
+        mochis={hottest}
+        browseHref="/menu"
+      />
+      <Section
+        eyebrow="House Specials"
+        heading="The sweetest mochis."
+        mochis={houseSpecials}
+        browseHref="/menu"
+      />
+      <Section
+        eyebrow="Fresh Today"
+        heading="Just added to the menu."
+        mochis={fresh}
+        browseHref="/menu"
+      />
     </section>
   );
 }

@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { ToastProvider } from "@/components/ui/toast";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import MobileTabBar from "@/components/layout/mobile-tab-bar";
+import { LunchboxProvider } from "@/lib/use-lunchbox";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -47,16 +49,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var d=localStorage.getItem('mochi-dark-mode');if(d==='true'||(d===null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body
         className={`${plusJakartaSans.variable} antialiased`}
       >
         <ToastProvider>
-          <Header />
-          <main style={{ paddingTop: 48 }}>
-            {children}
-          </main>
-          <Footer />
+          <LunchboxProvider>
+            <Header />
+            <main role="main" style={{ paddingTop: 60 }}>
+              {children}
+            </main>
+            <Footer />
+            <MobileTabBar />
+          </LunchboxProvider>
         </ToastProvider>
       </body>
     </html>

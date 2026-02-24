@@ -13,23 +13,11 @@ export default function FlavorHeader({ slug, mochiCount }: FlavorHeaderProps) {
   return (
     <div
       style={{
-        maxWidth: 980,
+        maxWidth: 1120,
         margin: "0 auto",
         padding: "48px 20px 0",
       }}
     >
-      {/* Colored accent bar */}
-      <div
-        style={{
-          width: 48,
-          height: 4,
-          borderRadius: 2,
-          backgroundColor: flavor.color,
-          marginBottom: 24,
-        }}
-      />
-
-      {/* Emoji */}
       <span
         style={{ fontSize: 48, lineHeight: 1, display: "block", marginBottom: 16 }}
         aria-hidden="true"
@@ -37,13 +25,12 @@ export default function FlavorHeader({ slug, mochiCount }: FlavorHeaderProps) {
         {flavor.emoji}
       </span>
 
-      {/* Name */}
       <h1
         style={{
-          fontSize: "clamp(40px, 6vw, 56px)",
+          fontSize: "clamp(32px, 5vw, 48px)",
           fontWeight: 800,
           letterSpacing: "-0.035em",
-          color: "var(--label-primary)",
+          color: "var(--t1)",
           lineHeight: 1.1,
           marginBottom: 12,
         }}
@@ -51,12 +38,11 @@ export default function FlavorHeader({ slug, mochiCount }: FlavorHeaderProps) {
         {flavor.name}
       </h1>
 
-      {/* Description */}
       <p
         style={{
-          fontSize: 19,
+          fontSize: 18,
           fontWeight: 500,
-          color: "var(--label-secondary)",
+          color: "var(--t2)",
           lineHeight: 1.47,
           marginBottom: 8,
         }}
@@ -64,12 +50,11 @@ export default function FlavorHeader({ slug, mochiCount }: FlavorHeaderProps) {
         {flavor.description}
       </p>
 
-      {/* Mochi count */}
       <p
         style={{
           fontSize: 14,
           fontWeight: 500,
-          color: "var(--label-tertiary)",
+          color: "var(--t3)",
         }}
       >
         {mochiCount} {mochiCount === 1 ? "mochi" : "mochis"}

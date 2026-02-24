@@ -25,31 +25,19 @@ export default async function MenuPage() {
 
   return (
     <>
-      {/* Hero header */}
       <div
         style={{
           maxWidth: 1120,
           margin: "0 auto",
-          padding: "56px 20px 0",
+          padding: "48px 20px 0",
         }}
       >
-        {/* Accent bar */}
-        <div
-          style={{
-            width: 48,
-            height: 4,
-            borderRadius: 2,
-            background: "linear-gradient(135deg, #FF6B9D, #FFB088)",
-            marginBottom: 24,
-          }}
-        />
-
         <h1
           style={{
-            fontSize: "clamp(40px, 6vw, 56px)",
+            fontSize: "clamp(32px, 5vw, 48px)",
             fontWeight: 800,
             letterSpacing: "-0.035em",
-            color: "var(--label-primary)",
+            color: "var(--t1)",
             lineHeight: 1.1,
             marginBottom: 12,
           }}
@@ -59,9 +47,9 @@ export default async function MenuPage() {
 
         <p
           style={{
-            fontSize: 19,
+            fontSize: 18,
             fontWeight: 500,
-            color: "var(--label-secondary)",
+            color: "var(--t2)",
             lineHeight: 1.47,
             maxWidth: 560,
           }}
@@ -70,7 +58,6 @@ export default async function MenuPage() {
         </p>
       </div>
 
-      {/* Grid with flavor filters */}
       <MochiGrid mochis={mochiList} flavors={FLAVORS} />
     </>
   );

@@ -28,6 +28,7 @@ export default function FlavorBadge({ flavor, size = "md" }: FlavorBadgeProps) {
         minHeight: 44,
         display: "inline-flex",
         alignItems: "center",
+        textDecoration: "none",
       }}
     >
       <span aria-hidden="true">{flavorData.emoji}</span>

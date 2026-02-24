@@ -4,14 +4,15 @@ export default function Footer() {
   return (
     <footer
       style={{
-        borderTop: "0.5px solid rgba(60, 60, 67, 0.06)",
+        borderTop: "1px solid var(--sep)",
       }}
     >
       <div
         style={{
           maxWidth: 1120,
           margin: "0 auto",
-          padding: 24,
+          padding: "24px 20px",
+          paddingBottom: 100,
         }}
       >
         {/* Top row */}
@@ -22,15 +23,30 @@ export default function Footer() {
           {/* Logo */}
           <Link
             href="/"
+            className="flex items-center"
             style={{
               fontWeight: 800,
               fontSize: 14,
-              color: "var(--label-primary)",
+              color: "var(--t1)",
               textDecoration: "none",
               letterSpacing: "-0.03em",
+              gap: 6,
             }}
           >
-            <span aria-hidden="true" style={{ marginRight: 3 }}>🍡</span>
+            <div
+              style={{
+                width: 22,
+                height: 22,
+                borderRadius: 6,
+                background: "var(--gradient-primary)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 12,
+              }}
+            >
+              <span aria-hidden="true">🍡</span>
+            </div>
             mochi
           </Link>
 
@@ -41,7 +57,7 @@ export default function Footer() {
               style={{
                 fontSize: 12,
                 fontWeight: 500,
-                color: "var(--label-secondary)",
+                color: "var(--t2)",
                 textDecoration: "none",
                 minHeight: 44,
                 display: "flex",
@@ -57,7 +73,7 @@ export default function Footer() {
               style={{
                 fontSize: 12,
                 fontWeight: 500,
-                color: "var(--label-secondary)",
+                color: "var(--t2)",
                 textDecoration: "none",
                 minHeight: 44,
                 display: "flex",
@@ -74,7 +90,7 @@ export default function Footer() {
           className="text-center"
           style={{
             fontSize: 12,
-            color: "var(--label-tertiary)",
+            color: "var(--t3)",
           }}
         >
           Feed your AI superpowers.

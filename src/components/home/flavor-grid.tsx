@@ -7,38 +7,35 @@ export function FlavorGrid() {
       style={{
         maxWidth: 1120,
         margin: "0 auto",
-        padding: "80px 20px",
+        padding: "60px 20px 80px",
       }}
     >
-      {/* Eyebrow */}
       <p
         style={{
           fontSize: 13,
           fontWeight: 700,
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: "var(--brand-pink)",
+          color: "var(--pink-text)",
           marginBottom: 8,
         }}
       >
         Flavors
       </p>
 
-      {/* Heading */}
       <h2
         style={{
-          fontSize: "clamp(32px, 5vw, 48px)",
+          fontSize: "clamp(28px, 4vw, 40px)",
           fontWeight: 800,
           letterSpacing: "-0.035em",
-          color: "var(--label-primary)",
+          color: "var(--t1)",
           lineHeight: 1.1,
-          marginBottom: 48,
+          marginBottom: 32,
         }}
       >
         Browse by flavor.
       </h2>
 
-      {/* Grid */}
       <div
         style={{
           display: "grid",
@@ -56,7 +53,7 @@ export function FlavorGrid() {
             <div
               className="mochi-card"
               style={{
-                backgroundColor: "var(--bg-primary)",
+                backgroundColor: "var(--bg)",
                 borderRadius: "var(--radius-xl)",
                 boxShadow: "var(--elevation-1)",
                 padding: 24,
@@ -75,7 +72,7 @@ export function FlavorGrid() {
                   style={{
                     fontSize: 22,
                     fontWeight: 700,
-                    color: "var(--label-primary)",
+                    color: "var(--t1)",
                   }}
                 >
                   {flavor.name}
@@ -84,7 +81,7 @@ export function FlavorGrid() {
               <p
                 style={{
                   fontSize: 15,
-                  color: "var(--label-secondary)",
+                  color: "var(--t2)",
                   lineHeight: 1.47,
                 }}
               >

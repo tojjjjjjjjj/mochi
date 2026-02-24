@@ -40,6 +40,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    {
+      url: 'https://mochi.market/lunchbox',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.6,
+    },
     ...flavorUrls,
     ...mochiUrls,
   ]

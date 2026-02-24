@@ -29,7 +29,7 @@ export default async function Image({
             display: "flex",
             width: "100%",
             height: "100%",
-            background: "#fff",
+            background: "linear-gradient(135deg, #FFF0F5, #FFFFFF)",
             alignItems: "center",
             justifyContent: "center",
             fontSize: 48,
@@ -51,7 +51,7 @@ export default async function Image({
           flexDirection: "column",
           width: "100%",
           height: "100%",
-          background: "white",
+          background: "linear-gradient(135deg, #FFF0F5, #FFFFFF)",
           padding: "60px 80px",
           justifyContent: "space-between",
         }}
@@ -61,7 +61,7 @@ export default async function Image({
             style={{
               fontSize: 20,
               fontWeight: 600,
-              color: "#FF6B9D",
+              color: "#C93D6A",
               marginBottom: 16,
             }}
           >
@@ -83,7 +83,7 @@ export default async function Image({
             style={{
               fontSize: 24,
               fontWeight: 500,
-              color: "#6E6E73",
+              color: "#58585D",
               lineHeight: 1.4,
             }}
           >
@@ -96,7 +96,7 @@ export default async function Image({
             alignItems: "center",
             gap: 12,
             fontSize: 16,
-            color: "#AEAEB2",
+            color: "#86868B",
           }}
         >
           <span>
@@ -107,7 +107,7 @@ export default async function Image({
           {mochi.is_house_special && (
             <>
               <span>&bull;</span>
-              <span>&#9733; House Special</span>
+              <span>&#9733; Chef&apos;s Pick</span>
             </>
           )}
         </div>

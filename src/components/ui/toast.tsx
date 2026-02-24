@@ -29,14 +29,12 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     const id = ++toastId;
     setToasts((prev) => [...prev, { id, message, exiting: false }]);
 
-    // Start exit animation after 2.7s
     setTimeout(() => {
       setToasts((prev) =>
         prev.map((t) => (t.id === id ? { ...t, exiting: true } : t))
       );
     }, 2700);
 
-    // Remove after 3s (2.7s display + 0.3s exit animation)
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
     }, 3000);
@@ -45,21 +43,27 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="fixed bottom-6 left-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none">
+      <div
+        className="fixed bottom-6 left-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none"
+        style={{ bottom: 80 }}
+      >
         {toasts.map((toast) => (
           <div
             key={toast.id}
+            role="alert"
+            aria-live="polite"
             className={`${
               toast.exiting ? "toast-exit" : "toast-enter"
             } pointer-events-auto`}
             style={{
               padding: "12px 24px",
               borderRadius: "9999px",
-              backgroundColor: "var(--bg-primary)",
-              color: "var(--label-primary)",
+              backgroundColor: "var(--bg)",
+              color: "var(--t1)",
               fontWeight: 500,
               fontSize: 14,
               boxShadow: "var(--elevation-3)",
+              border: "1px solid var(--sep)",
               position: "relative",
               left: "50%",
               transform: "translateX(-50%)",
