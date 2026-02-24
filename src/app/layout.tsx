@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google";
 import { ToastProvider } from "@/components/ui/toast";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -11,6 +11,13 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -58,18 +65,19 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${plusJakartaSans.variable} antialiased`}
+        className={`${plusJakartaSans.variable} ${instrumentSerif.variable} antialiased`}
       >
         <ToastProvider>
           <LunchboxProvider>
             <Header />
-            <main role="main" style={{ paddingTop: 60 }}>
+            <main role="main">
               {children}
             </main>
             <Footer />
             <MobileTabBar />
           </LunchboxProvider>
         </ToastProvider>
+        <div className="grain-overlay" aria-hidden="true" />
       </body>
     </html>
   );

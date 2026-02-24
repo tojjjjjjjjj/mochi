@@ -56,38 +56,21 @@ function MochiGridInner({ mochis, initialFlavor, initialSearch, flavors }: Mochi
   return (
     <div
       style={{
-        maxWidth: 1120,
+        maxWidth: 1200,
         margin: "0 auto",
-        padding: "40px 20px 80px",
+        padding: "0 32px 80px",
       }}
     >
       {/* Flavor filter pills */}
       {flavors && flavors.length > 0 && (
         <div
           className="flex flex-wrap items-center"
-          style={{ gap: 8, marginBottom: 20 }}
+          style={{ gap: 8, marginBottom: 12 }}
         >
           <button
             onClick={() => setActiveFlavor(null)}
             aria-pressed={activeFlavor === null}
-            className="btn-bouncy cursor-pointer"
-            style={{
-              padding: "6px 16px",
-              borderRadius: "9999px",
-              fontSize: 14,
-              fontWeight: 600,
-              border: "none",
-              minHeight: 36,
-              background: activeFlavor === null
-                ? "var(--gradient-primary)"
-                : "var(--bg2)",
-              color: activeFlavor === null
-                ? "#FFFFFF"
-                : "var(--t2)",
-              boxShadow: activeFlavor === null
-                ? "0 2px 8px rgba(255, 107, 157, 0.2)"
-                : "none",
-            }}
+            className={`filter-pill cursor-pointer ${activeFlavor === null ? "active" : ""}`}
           >
             All Flavors
           </button>
@@ -98,27 +81,12 @@ function MochiGridInner({ mochis, initialFlavor, initialSearch, flavors }: Mochi
                 setActiveFlavor(activeFlavor === flavor.slug ? null : flavor.slug)
               }
               aria-pressed={activeFlavor === flavor.slug}
-              className="btn-bouncy cursor-pointer"
-              style={{
-                padding: "6px 16px",
-                borderRadius: "9999px",
-                fontSize: 14,
-                fontWeight: 600,
-                border: "none",
-                minHeight: 36,
-                background:
-                  activeFlavor === flavor.slug
-                    ? flavor.bgLight
-                    : "var(--bg2)",
-                color:
-                  activeFlavor === flavor.slug
-                    ? flavor.color
-                    : "var(--t2)",
-                boxShadow:
-                  activeFlavor === flavor.slug
-                    ? `0 2px 8px ${flavor.color}33`
-                    : "none",
-              }}
+              className={`filter-pill cursor-pointer ${activeFlavor === flavor.slug ? "active" : ""}`}
+              style={
+                activeFlavor === flavor.slug
+                  ? { background: flavor.color, color: "#FFFFFF" }
+                  : undefined
+              }
             >
               {flavor.emoji} {flavor.name}
             </button>
@@ -129,34 +97,14 @@ function MochiGridInner({ mochis, initialFlavor, initialSearch, flavors }: Mochi
       {/* Type filter pills */}
       <div
         className="flex items-center"
-        style={{ gap: 8, marginBottom: 32 }}
+        style={{ gap: 8, marginBottom: 24 }}
       >
         {FILTER_OPTIONS.map((option) => (
           <button
             key={option}
             onClick={() => setActiveFilter(option)}
             aria-pressed={activeFilter === option}
-            className="btn-bouncy cursor-pointer"
-            style={{
-              padding: "6px 18px",
-              borderRadius: "9999px",
-              fontSize: 14,
-              fontWeight: 600,
-              border: "none",
-              minHeight: 36,
-              background:
-                activeFilter === option
-                  ? "var(--gradient-primary)"
-                  : "var(--bg2)",
-              color:
-                activeFilter === option
-                  ? "#FFFFFF"
-                  : "var(--t2)",
-              boxShadow:
-                activeFilter === option
-                  ? "0 2px 8px rgba(255, 107, 157, 0.2)"
-                  : "none",
-            }}
+            className={`filter-pill cursor-pointer ${activeFilter === option ? "active" : ""}`}
           >
             {option}
           </button>
@@ -166,6 +114,7 @@ function MochiGridInner({ mochis, initialFlavor, initialSearch, flavors }: Mochi
       {/* Grid */}
       {filteredMochis.length > 0 ? (
         <div
+          className="card-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
@@ -178,21 +127,20 @@ function MochiGridInner({ mochis, initialFlavor, initialSearch, flavors }: Mochi
         </div>
       ) : (
         <div
-          className="flex flex-col items-center justify-center"
           style={{
-            padding: "80px 20px",
             textAlign: "center",
+            padding: "64px 20px",
           }}
         >
-          <span style={{ fontSize: 48, marginBottom: 16 }} aria-hidden="true">
+          <p style={{ fontSize: 48, marginBottom: 12 }} aria-hidden="true">
             &#x1F361;
-          </span>
+          </p>
           <p
             style={{
-              fontSize: 19,
-              fontWeight: 600,
-              color: "var(--t2)",
-              marginBottom: 8,
+              fontSize: 18,
+              fontWeight: 700,
+              marginBottom: 6,
+              color: "var(--t1)",
             }}
           >
             No mochis found
@@ -200,7 +148,7 @@ function MochiGridInner({ mochis, initialFlavor, initialSearch, flavors }: Mochi
           <p
             style={{
               fontSize: 15,
-              color: "var(--t3)",
+              color: "var(--t2)",
             }}
           >
             Try a different search or filter.

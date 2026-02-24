@@ -42,57 +42,44 @@ export default function LunchboxPage() {
   return (
     <div
       style={{
-        maxWidth: 1120,
+        maxWidth: 1200,
         margin: "0 auto",
-        padding: "48px 20px 80px",
+        padding: "32px 32px 80px",
       }}
     >
       <h1
         style={{
-          fontSize: "clamp(32px, 5vw, 48px)",
+          fontSize: 28,
           fontWeight: 800,
-          letterSpacing: "-0.035em",
+          letterSpacing: "-0.03em",
           color: "var(--t1)",
-          lineHeight: 1.1,
-          marginBottom: 12,
+          marginBottom: 4,
         }}
       >
         My Lunchbox
       </h1>
-
       <p
         style={{
-          fontSize: 18,
-          fontWeight: 500,
+          fontSize: 15,
           color: "var(--t2)",
-          lineHeight: 1.47,
-          marginBottom: 40,
+          marginBottom: 32,
         }}
       >
         Your saved mochis, ready to go.
       </p>
 
       {loading ? (
-        <div
-          className="flex items-center justify-center"
-          style={{ padding: "80px 20px", color: "var(--t3)" }}
-        >
+        <div style={{ padding: "64px 20px", textAlign: "center", color: "var(--t3)" }}>
           Loading...
         </div>
       ) : items.length === 0 ? (
-        <div
-          className="flex flex-col items-center justify-center"
-          style={{
-            padding: "80px 20px",
-            textAlign: "center",
-          }}
-        >
-          <span style={{ fontSize: 64, marginBottom: 16 }} aria-hidden="true">
-            🍱
-          </span>
+        <div style={{ textAlign: "center", padding: "100px 32px" }}>
+          <p style={{ fontSize: 64, marginBottom: 20 }} aria-hidden="true">
+            &#x1F371;
+          </p>
           <p
             style={{
-              fontSize: 22,
+              fontSize: 24,
               fontWeight: 700,
               color: "var(--t1)",
               marginBottom: 8,
@@ -104,25 +91,23 @@ export default function LunchboxPage() {
             style={{
               fontSize: 16,
               color: "var(--t2)",
-              marginBottom: 24,
-              maxWidth: 360,
+              lineHeight: 1.5,
+              marginBottom: 28,
+              maxWidth: 320,
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
             Browse the menu and tap the heart on any mochi to save it here.
           </p>
           <Link
             href="/menu"
-            className="btn-bouncy inline-flex items-center justify-center"
+            className="feed-btn btn-bouncy"
             style={{
-              background: "var(--gradient-primary)",
-              color: "#FFFFFF",
-              fontWeight: 600,
-              fontSize: 16,
-              borderRadius: "9999px",
-              padding: "12px 32px",
+              padding: "14px 32px",
+              fontSize: 17,
+              minHeight: 52,
               textDecoration: "none",
-              minHeight: 44,
-              boxShadow: "0 4px 14px rgba(255, 107, 157, 0.3)",
             }}
           >
             Browse the Menu
@@ -130,6 +115,7 @@ export default function LunchboxPage() {
         </div>
       ) : (
         <div
+          className="card-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",

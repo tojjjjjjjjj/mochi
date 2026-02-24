@@ -18,7 +18,6 @@ export default function Header() {
   const { isDark, toggle } = useDarkMode();
   const { count: lunchboxCount } = useLunchbox();
   const [searchValue, setSearchValue] = useState("");
-  const [searchFocused, setSearchFocused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleSearchChange = useCallback(
@@ -45,112 +44,31 @@ export default function Header() {
     [router, searchValue]
   );
 
+  const clearSearch = () => {
+    setSearchValue("");
+    if (timerRef.current) clearTimeout(timerRef.current);
+  };
+
   useEffect(() => {
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, []);
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 frosted-glass"
-      style={{
-        zIndex: 100,
-        height: 60,
-        borderBottom: "0.5px solid var(--sep)",
-      }}
-    >
-      <nav
-        role="navigation"
-        aria-label="Main navigation"
-        className="flex items-center justify-between"
-        style={{
-          maxWidth: 1120,
-          margin: "0 auto",
-          height: 60,
-          padding: "0 20px",
-        }}
-      >
-        {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center"
-          style={{
-            fontWeight: 800,
-            fontSize: 17,
-            letterSpacing: "-0.03em",
-            color: "var(--t1)",
-            textDecoration: "none",
-            minHeight: 44,
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
-          <div
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 8,
-              background: "var(--gradient-primary)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 18,
-            }}
-          >
-            <span aria-hidden="true">🍡</span>
-          </div>
-          <span className="hidden sm:inline">mochi</span>
+    <header className="frosted-glass" style={{ position: "sticky", top: 0, zIndex: 100, height: 60 }}>
+      <nav role="navigation" aria-label="Main navigation" className="flex items-center" style={{ maxWidth: 1200, margin: "0 auto", height: 60, padding: "0 32px", gap: 24 }}>
+        <Link href="/" className="flex items-center" style={{ gap: 10, textDecoration: "none", flexShrink: 0, padding: "8px 0" }}>
+          <div className="nav-mark" aria-hidden="true" />
+          <span style={{ fontSize: 20, fontWeight: 800, letterSpacing: "-0.04em", color: "var(--t1)" }}>mochi</span>
         </Link>
 
-        {/* Desktop nav links */}
-        <div
-          className="hidden md:flex items-center"
-          style={{ gap: 24 }}
-        >
+        <div className="hidden md:flex items-center" style={{ gap: 4, flex: 1 }}>
           {NAV_LINKS.map((link) => {
-            const isActive =
-              link.href === "/menu"
-                ? pathname === "/menu"
-                : link.href === "/flavor/design"
-                  ? pathname.startsWith("/flavor")
-                  : pathname === link.href;
-
+            const isActive = link.href === "/menu" ? pathname === "/menu" : link.href === "/flavor/design" ? pathname.startsWith("/flavor") : pathname === link.href;
             return (
-              <Link
-                key={link.href}
-                href={link.href}
-                style={{
-                  fontSize: 13,
-                  fontWeight: isActive ? 600 : 500,
-                  color: isActive ? "var(--t1)" : "var(--t2)",
-                  textDecoration: "none",
-                  minHeight: 44,
-                  display: "flex",
-                  alignItems: "center",
-                  transition: "color 0.2s ease",
-                  position: "relative",
-                }}
-              >
+              <Link key={link.href} href={link.href} className={`nav-link-item ${isActive ? "active" : ""}`}>
                 {link.label}
                 {link.label === "My Lunchbox" && lunchboxCount > 0 && (
-                  <span
-                    style={{
-                      marginLeft: 6,
-                      width: 18,
-                      height: 18,
-                      borderRadius: "50%",
-                      background: "var(--pink)",
-                      color: "#FFFFFF",
-                      fontSize: 10,
-                      fontWeight: 700,
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      lineHeight: 1,
-                    }}
-                  >
+                  <span style={{ marginLeft: 6, padding: "1px 7px", borderRadius: 100, background: "var(--pink)", color: "#FFF", fontSize: 11, fontWeight: 700, lineHeight: "18px" }}>
                     {lunchboxCount > 99 ? "99+" : lunchboxCount}
                   </span>
                 )}
@@ -159,77 +77,20 @@ export default function Header() {
           })}
         </div>
 
-        {/* Right side: search + dark toggle */}
-        <div className="flex items-center" style={{ gap: 8 }}>
-          {/* Search */}
-          <div className="hidden md:block relative">
-            <svg
-              className="absolute left-3 top-1/2 -translate-y-1/2"
-              style={{ color: "var(--t3)", pointerEvents: "none" }}
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-              type="search"
-              value={searchValue}
-              onChange={handleSearchChange}
-              onKeyDown={handleSearchKeyDown}
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setSearchFocused(false)}
-              placeholder="Search mochis..."
-              aria-label="Search mochis"
-              style={{
-                width: searchFocused ? 320 : 240,
-                paddingLeft: 34,
-                paddingRight: 12,
-                paddingTop: 8,
-                paddingBottom: 8,
-                borderRadius: 10,
-                backgroundColor: "var(--bg2)",
-                border: "1px solid var(--sep)",
-                fontSize: 13,
-                color: "var(--t1)",
-                outline: "none",
-                transition: "width 0.3s ease, border-color 0.2s ease",
-                minHeight: 36,
-              }}
-            />
-          </div>
-
-          {/* Dark mode toggle */}
-          <button
-            onClick={toggle}
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            className="hidden md:flex items-center justify-center"
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 10,
-              background: "var(--bg2)",
-              border: "1px solid var(--sep)",
-              cursor: "pointer",
-              color: "var(--t2)",
-              fontSize: 16,
-              minHeight: 44,
-              minWidth: 44,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {isDark ? "☀️" : "🌙"}
-          </button>
+        <div className="hidden md:flex items-center" role="search" style={{ gap: 8, background: "var(--bg2)", borderRadius: 10, padding: "0 14px", height: 40, width: 240, flexShrink: 0, transition: "width 0.3s ease, box-shadow 0.2s ease" }}
+          onFocus={(e) => { (e.currentTarget as HTMLElement).style.width = "320px"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 2px var(--focus)"; }}
+          onBlur={(e) => { (e.currentTarget as HTMLElement).style.width = "240px"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
+          <span style={{ fontSize: 14, color: "var(--t3)", flexShrink: 0 }} aria-hidden="true">&#x1F50D;</span>
+          <input type="search" value={searchValue} onChange={handleSearchChange} onKeyDown={handleSearchKeyDown} placeholder="Search mochis..." aria-label="Search mochis" autoComplete="off"
+            style={{ flex: 1, background: "none", fontSize: 14, color: "var(--t1)", height: "100%", border: "none", outline: "none" }} />
+          {searchValue && (
+            <button onClick={clearSearch} aria-label="Clear search" style={{ padding: 4, fontSize: 14, color: "var(--t3)", minWidth: 28, minHeight: 28, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "none", border: "none", cursor: "pointer" }}>&#x2715;</button>
+          )}
         </div>
+
+        <button onClick={toggle} aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"} aria-pressed={isDark} className={`dark-toggle hidden md:block ${isDark ? "on" : ""}`} />
+
+        <div className="hidden md:flex" style={{ width: 44, height: 44, borderRadius: "50%", background: "var(--gradient-primary)", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 800, color: "white", flexShrink: 0 }}>M</div>
       </nav>
     </header>
   );

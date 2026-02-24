@@ -8,19 +8,13 @@ import PlatformInstallFlow from "@/components/mochi/platform-install-flow";
 import type { Mochi } from "@/types/database";
 import { FLAVORS } from "@/lib/constants";
 
-type MochiDetailProps = {
-  mochi: Mochi;
-};
+type MochiDetailProps = { mochi: Mochi };
 
 function highlightBrackets(text: string) {
   const parts = text.split(/(\[[^\]]*\])/g);
   return parts.map((part, i) => {
     if (part.startsWith("[") && part.endsWith("]")) {
-      return (
-        <span key={i} style={{ color: "var(--pink)", fontWeight: 600 }}>
-          {part}
-        </span>
-      );
+      return <span key={i} style={{ color: "var(--pink)", fontWeight: 600 }}>{part}</span>;
     }
     return part;
   });
@@ -30,316 +24,84 @@ export default function MochiDetail({ mochi }: MochiDetailProps) {
   const [showFull, setShowFull] = useState(false);
   const flavor = FLAVORS.find((f) => f.slug === mochi.flavor);
   const contentLines = mochi.content.split("\n");
-  const isLong = contentLines.length > 20;
-  const displayContent = isLong && !showFull
-    ? contentLines.slice(0, 20).join("\n") + "\n..."
-    : mochi.content;
-
-  const updatedDate = new Date(mochi.updated_at).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
+  const isLong = contentLines.length > 12;
+  const displayContent = isLong && !showFull ? contentLines.slice(0, 12).join("\n") + "\n..." : mochi.content;
+  const updatedDate = new Date(mochi.updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
   return (
-    <div
-      style={{
-        maxWidth: 1120,
-        margin: "0 auto",
-        padding: "32px 20px 80px",
-      }}
-    >
-      {/* Breadcrumb */}
-      <nav
-        aria-label="Breadcrumb"
-        style={{ marginBottom: 32 }}
-      >
-        <ol className="flex items-center flex-wrap" style={{ gap: 8, listStyle: "none", padding: 0, margin: 0 }}>
-          <li>
-            <Link
-              href="/menu"
-              style={{
-                fontSize: 13,
-                fontWeight: 500,
-                color: "var(--t3)",
-                textDecoration: "none",
-              }}
-            >
-              Menu
-            </Link>
-          </li>
-          <li style={{ color: "var(--t4)", fontSize: 12 }} aria-hidden="true">/</li>
-          <li>
-            <Link
-              href={`/flavor/${mochi.flavor}`}
-              style={{
-                fontSize: 13,
-                fontWeight: 500,
-                color: "var(--t3)",
-                textDecoration: "none",
-              }}
-            >
-              {flavor?.name ?? mochi.flavor}
-            </Link>
-          </li>
-          <li style={{ color: "var(--t4)", fontSize: 12 }} aria-hidden="true">/</li>
-          <li>
-            <span
-              style={{
-                fontSize: 13,
-                fontWeight: 600,
-                color: "var(--t1)",
-              }}
-            >
-              {mochi.title}
-            </span>
-          </li>
-        </ol>
+    <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px 60px" }}>
+      <nav aria-label="Breadcrumb" className="flex items-center flex-wrap" style={{ gap: 6, padding: "16px 0 8px", fontSize: 14, color: "var(--t3)" }}>
+        <Link href="/menu" style={{ color: "var(--pink-text)", fontWeight: 500, textDecoration: "none", padding: "4px 0" }}>Menu</Link>
+        <span style={{ color: "var(--t4)" }} aria-hidden="true">/</span>
+        <Link href={`/flavor/${mochi.flavor}`} style={{ color: "var(--pink-text)", fontWeight: 500, textDecoration: "none", padding: "4px 0" }}>{flavor?.name ?? mochi.flavor}</Link>
+        <span style={{ color: "var(--t4)" }} aria-hidden="true">/</span>
+        <span style={{ color: "var(--t2)", fontWeight: 500 }}>{mochi.title}</span>
       </nav>
 
-      {/* 2-column layout */}
-      <div
-        className="detail-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr",
-          gap: 40,
-        }}
-      >
-        {/* Left column */}
+      <div className="detail-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 48, padding: "24px 0" }}>
         <div style={{ minWidth: 0 }}>
-          {/* Hero emoji */}
-          <div
-            style={{
-              width: 80,
-              height: 80,
-              borderRadius: 20,
-              background: flavor
-                ? `linear-gradient(135deg, ${flavor.bgLight}, ${flavor.color}22)`
-                : "var(--bg2)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 40,
-              marginBottom: 24,
-            }}
-          >
+          <div style={{ height: 280, borderRadius: 24, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 80, marginBottom: 28, background: flavor ? `linear-gradient(135deg, ${flavor.bgLight}, ${flavor.color}22)` : "var(--bg2)" }}>
             <span aria-hidden="true">{mochi.flavor_emoji}</span>
           </div>
 
-          {/* Content section */}
-          <div>
-            <h2
-              style={{
-                fontSize: 20,
-                fontWeight: 700,
-                color: "var(--t1)",
-                marginBottom: 16,
-              }}
-            >
-              {mochi.type === "prompt" ? "The Prompt" : "The Skill"}
-            </h2>
+          <h1 style={{ fontSize: 32, fontWeight: 800, letterSpacing: "-0.03em", color: "var(--t1)", marginBottom: 8 }}>{mochi.title}</h1>
+          <p style={{ fontSize: 17, color: "var(--t2)", lineHeight: 1.5, marginBottom: 20, maxWidth: 580 }}>{mochi.tagline}</p>
 
-            <pre
-              style={{
-                backgroundColor: "var(--bg2)",
-                borderRadius: "var(--radius-lg)",
-                padding: 24,
-                fontFamily:
-                  '"JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
-                fontSize: 13,
-                lineHeight: 1.6,
-                whiteSpace: "pre-wrap",
-                wordBreak: "break-word",
-                color: "var(--t1)",
-                overflowX: "auto",
-                position: "relative",
-              }}
-            >
-              {highlightBrackets(displayContent)}
-            </pre>
-
-            {isLong && (
-              <button
-                onClick={() => setShowFull(!showFull)}
-                className="btn-bouncy cursor-pointer"
-                style={{
-                  marginTop: 12,
-                  padding: "8px 20px",
-                  borderRadius: "9999px",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  background: "var(--bg2)",
-                  color: "var(--t2)",
-                  border: "1px solid var(--sep)",
-                  minHeight: 36,
-                }}
-              >
-                {showFull ? "Show less" : "Show more"}
-              </button>
-            )}
+          <div className="flex flex-wrap items-center" style={{ gap: 8, marginBottom: 24 }}>
+            <FlavorBadge flavor={mochi.flavor} size="sm" />
+            {mochi.is_house_special && <span style={{ padding: "6px 14px", borderRadius: 100, fontSize: 13, fontWeight: 600, background: "#FFFCEB", color: "#D4A017" }}>&#9733; Chef&apos;s Pick</span>}
+            <span style={{ padding: "6px 14px", borderRadius: 100, fontSize: 13, fontWeight: 600, background: "var(--bg2)", color: "var(--t2)" }}>{mochi.type === "prompt" ? "Prompt" : "Skill"}</span>
           </div>
 
-          {/* Preview description */}
+          <h2 style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.01em", marginBottom: 12 }}>{mochi.type === "prompt" ? "The Prompt" : "The Skill"}</h2>
+
+          <div className="det-code-block" style={{ position: "relative", background: "var(--t1)", borderRadius: 16, padding: 20, maxHeight: showFull ? "none" : 180, overflow: "hidden" }}>
+            <pre style={{ fontFamily: "var(--mono)", fontSize: 13, color: "rgba(255,255,255,0.7)", lineHeight: 1.6, whiteSpace: "pre-wrap", wordBreak: "break-word", margin: 0 }}>
+              {highlightBrackets(displayContent)}
+            </pre>
+            {isLong && !showFull && <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 60, background: "linear-gradient(transparent, var(--t1))" }} />}
+          </div>
+
+          {isLong && (
+            <button onClick={() => setShowFull(!showFull)} className="cursor-pointer" style={{ fontSize: 14, fontWeight: 600, color: "var(--pink-text)", padding: "12px 0", minHeight: 44, display: "inline-flex", alignItems: "center", background: "none", border: "none" }}>
+              {showFull ? "Show less" : "Show more"}
+            </button>
+          )}
+
           {mochi.preview_description && (
-            <div style={{ marginTop: 40 }}>
-              <h2
-                style={{
-                  fontSize: 20,
-                  fontWeight: 700,
-                  color: "var(--t1)",
-                  marginBottom: 12,
-                }}
-              >
-                About this {mochi.type}
-              </h2>
-              <p
-                style={{
-                  fontSize: 16,
-                  color: "var(--t2)",
-                  lineHeight: 1.6,
-                }}
-              >
-                {mochi.preview_description}
-              </p>
+            <div style={{ marginTop: 28 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.01em", marginBottom: 12 }}>About this {mochi.type}</h2>
+              <p style={{ fontSize: 16, color: "var(--t2)", lineHeight: 1.6 }}>{mochi.preview_description}</p>
             </div>
           )}
 
-          {/* Taste test checks */}
-          <div style={{ marginTop: 40 }}>
-            <h3
-              style={{
-                fontSize: 15,
-                fontWeight: 700,
-                color: "var(--t1)",
-                marginBottom: 12,
-              }}
-            >
-              Taste-test checklist
-            </h3>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
-              {["Reviewed for quality", "Tested for safety", "No malicious content", "Works as described"].map((check) => (
-                <li
-                  key={check}
-                  className="flex items-center"
-                  style={{ gap: 8, fontSize: 14, color: "var(--t2)" }}
-                >
-                  <span style={{ color: "var(--success)", fontSize: 16 }}>&#10003;</span>
-                  {check}
-                </li>
-              ))}
-            </ul>
+          <div style={{ marginTop: 28, background: "var(--bg2)", borderRadius: 16, padding: 20 }}>
+            <p style={{ fontWeight: 600, color: "var(--success)", marginBottom: 8, fontSize: 15 }}>&#x2713; Taste-test checklist</p>
+            <div style={{ fontSize: 14, color: "var(--t2)", lineHeight: 1.7 }}>Reviewed for quality &bull; Tested for safety &bull; No malicious content &bull; Works as described</div>
           </div>
         </div>
 
-        {/* Right sidebar */}
         <div>
-          <div
-            className="md:sticky"
-            style={{ top: 80 }}
-          >
-            {/* Title */}
-            <h1
-              style={{
-                fontSize: 28,
-                fontWeight: 800,
-                letterSpacing: "-0.02em",
-                color: "var(--t1)",
-                lineHeight: 1.15,
-                marginBottom: 12,
-              }}
-            >
-              {mochi.title}
-            </h1>
-
-            {/* Tagline */}
-            <p
-              style={{
-                fontSize: 16,
-                fontWeight: 500,
-                color: "var(--t2)",
-                lineHeight: 1.47,
-                marginBottom: 20,
-              }}
-            >
-              {mochi.tagline}
-            </p>
-
-            {/* Badges row */}
-            <div
-              className="flex flex-wrap items-center"
-              style={{ gap: 8, marginBottom: 20 }}
-            >
-              <FlavorBadge flavor={mochi.flavor} size="sm" />
-              {mochi.is_house_special && (
-                <span
-                  className="inline-flex items-center gap-1"
-                  style={{
-                    padding: "3px 10px",
-                    borderRadius: "9999px",
-                    fontSize: 12,
-                    fontWeight: 600,
-                    backgroundColor: "#FFFCEB",
-                    color: "#D4A017",
-                    border: "1px solid #FFE066",
-                  }}
-                >
-                  <span aria-hidden="true">&#9733;</span> Chef&apos;s Pick
-                </span>
-              )}
-            </div>
-
-            {/* Stats grid */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: 1,
-                background: "var(--sep)",
-                borderRadius: "var(--radius-md)",
-                overflow: "hidden",
-                marginBottom: 20,
-              }}
-            >
-              <div style={{ background: "var(--bg2)", padding: "14px 12px", textAlign: "center" }}>
-                <p style={{ fontSize: 20, fontWeight: 800, color: "var(--t1)", lineHeight: 1 }}>
-                  {mochi.feed_count.toLocaleString()}
-                </p>
-                <p style={{ fontSize: 11, fontWeight: 500, color: "var(--t3)", marginTop: 4 }}>Fed</p>
-              </div>
-              <div style={{ background: "var(--bg2)", padding: "14px 12px", textAlign: "center" }}>
-                <p style={{ fontSize: 20, fontWeight: 800, color: "var(--t1)", lineHeight: 1 }}>
-                  v1
-                </p>
-                <p style={{ fontSize: 11, fontWeight: 500, color: "var(--t3)", marginTop: 4 }}>Version</p>
-              </div>
-              <div style={{ background: "var(--bg2)", padding: "14px 12px", textAlign: "center" }}>
-                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--t1)", lineHeight: 1 }}>
-                  {updatedDate}
-                </p>
-                <p style={{ fontSize: 11, fontWeight: 500, color: "var(--t3)", marginTop: 4 }}>Updated</p>
-              </div>
-            </div>
-
-            {/* Agent dots */}
-            <div style={{ marginBottom: 24 }}>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "var(--t3)", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                Works with
-              </p>
-              <div className="flex flex-wrap items-center" style={{ gap: 6 }}>
-                {mochi.compatible_with.map((agentId) => (
-                  <AgentBadge key={agentId} agentId={agentId} />
+          <div className="md:sticky" style={{ top: 80, alignSelf: "start" }}>
+            <div style={{ background: "var(--bg)", borderRadius: 20, padding: 28, boxShadow: "0 2px 12px rgba(0,0,0,0.06), 0 8px 28px rgba(0,0,0,0.04)", marginBottom: 20 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 24 }}>
+                {[{ value: mochi.feed_count.toLocaleString(), label: "Fed" }, { value: "v1", label: "Version" }, { value: updatedDate, label: "Updated" }].map((stat) => (
+                  <div key={stat.label} style={{ textAlign: "center", padding: "14px 8px", background: "var(--bg2)", borderRadius: 14 }}>
+                    <p style={{ fontSize: stat.label === "Updated" ? 14 : 24, fontWeight: 800, letterSpacing: "-0.02em", color: "var(--t1)", lineHeight: 1 }}>{stat.value}</p>
+                    <p style={{ fontSize: 12, color: "var(--t3)", marginTop: 2, fontWeight: 500 }}>{stat.label}</p>
+                  </div>
                 ))}
               </div>
-            </div>
 
-            {/* Install flow */}
-            <PlatformInstallFlow
-              content={mochi.content}
-              type={mochi.type}
-              slug={mochi.slug}
-              compatibleWith={mochi.compatible_with}
-            />
+              <div style={{ marginBottom: 24 }}>
+                <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t3)", textTransform: "uppercase", letterSpacing: "0.02em", marginBottom: 10 }}>Works with</p>
+                <div className="flex flex-wrap items-center" style={{ gap: 8 }}>
+                  {mochi.compatible_with.map((agentId) => (<AgentBadge key={agentId} agentId={agentId} />))}
+                </div>
+              </div>
+
+              <PlatformInstallFlow content={mochi.content} type={mochi.type} slug={mochi.slug} compatibleWith={mochi.compatible_with} />
+            </div>
           </div>
         </div>
       </div>
