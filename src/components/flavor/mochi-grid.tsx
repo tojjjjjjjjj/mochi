@@ -4,18 +4,24 @@ import { useState, useCallback } from "react";
 import MochiCard from "@/components/ui/mochi-card";
 import SearchBar from "@/components/ui/search-bar";
 import type { Mochi } from "@/types/database";
+import type { FlavorType } from "@/lib/constants";
 
 type MochiGridProps = {
   mochis: Mochi[];
   initialFlavor?: string;
+  /** When provided, renders flavor filter pills above the type filters */
+  flavors?: readonly FlavorType[];
 };
 
 const FILTER_OPTIONS = ["All", "Prompts", "Skills"] as const;
 type FilterType = (typeof FILTER_OPTIONS)[number];
 
-export default function MochiGrid({ mochis, initialFlavor }: MochiGridProps) {
+export default function MochiGrid({ mochis, initialFlavor, flavors }: MochiGridProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterType>("All");
+  const [activeFlavor, setActiveFlavor] = useState<string | null>(
+    initialFlavor ?? null
+  );
 
   const handleSearch = useCallback((query: string) => {
     setSearchTerm(query.toLowerCase());
@@ -25,6 +31,9 @@ export default function MochiGrid({ mochis, initialFlavor }: MochiGridProps) {
     // Type filter
     if (activeFilter === "Prompts" && mochi.type !== "prompt") return false;
     if (activeFilter === "Skills" && mochi.type !== "skill") return false;
+
+    // Flavor filter
+    if (activeFlavor && mochi.flavor !== activeFlavor) return false;
 
     // Search filter
     if (searchTerm) {
@@ -42,9 +51,6 @@ export default function MochiGrid({ mochis, initialFlavor }: MochiGridProps) {
     return true;
   });
 
-  // Suppress unused variable warning — initialFlavor is accepted for future use
-  void initialFlavor;
-
   return (
     <div
       style={{
@@ -53,6 +59,69 @@ export default function MochiGrid({ mochis, initialFlavor }: MochiGridProps) {
         padding: "40px 20px 80px",
       }}
     >
+      {/* Flavor filter pills */}
+      {flavors && flavors.length > 0 && (
+        <div
+          className="flex flex-wrap items-center"
+          style={{ gap: 8, marginBottom: 20 }}
+        >
+          <button
+            onClick={() => setActiveFlavor(null)}
+            className="btn-bouncy cursor-pointer"
+            style={{
+              padding: "6px 16px",
+              borderRadius: "9999px",
+              fontSize: 14,
+              fontWeight: 600,
+              border: "none",
+              minHeight: 36,
+              background: activeFlavor === null
+                ? "linear-gradient(135deg, #FF6B9D, #FFB088)"
+                : "var(--bg-secondary)",
+              color: activeFlavor === null
+                ? "#FFFFFF"
+                : "var(--label-secondary)",
+              boxShadow: activeFlavor === null
+                ? "0 2px 8px rgba(255, 107, 157, 0.2)"
+                : "none",
+            }}
+          >
+            All Flavors
+          </button>
+          {flavors.map((flavor) => (
+            <button
+              key={flavor.slug}
+              onClick={() =>
+                setActiveFlavor(activeFlavor === flavor.slug ? null : flavor.slug)
+              }
+              className="btn-bouncy cursor-pointer"
+              style={{
+                padding: "6px 16px",
+                borderRadius: "9999px",
+                fontSize: 14,
+                fontWeight: 600,
+                border: "none",
+                minHeight: 36,
+                background:
+                  activeFlavor === flavor.slug
+                    ? flavor.bgLight
+                    : "var(--bg-secondary)",
+                color:
+                  activeFlavor === flavor.slug
+                    ? flavor.color
+                    : "var(--label-secondary)",
+                boxShadow:
+                  activeFlavor === flavor.slug
+                    ? `0 2px 8px ${flavor.color}33`
+                    : "none",
+              }}
+            >
+              {flavor.emoji} {flavor.name}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Controls row */}
       <div
         className="flex flex-col sm:flex-row items-start sm:items-center"
@@ -60,7 +129,7 @@ export default function MochiGrid({ mochis, initialFlavor }: MochiGridProps) {
       >
         <SearchBar onSearch={handleSearch} placeholder="Search mochis..." />
 
-        {/* Filter pills */}
+        {/* Type filter pills */}
         <div className="flex items-center" style={{ gap: 8 }}>
           {FILTER_OPTIONS.map((option) => (
             <button
