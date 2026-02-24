@@ -12,9 +12,33 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Mochi — Feed your AI superpowers",
-  description:
-    "A curated marketplace of taste-tested AI skills and prompts. No malware, no garbage, no bullshit.",
+  title: {
+    default: 'Mochi — Feed your AI superpowers',
+    template: '%s | Mochi',
+  },
+  description: 'A curated marketplace of taste-tested AI skills and prompts. No malware, no garbage, no bullshit.',
+  metadataBase: new URL('https://mochi.market'),
+  openGraph: {
+    title: 'Mochi — Feed your AI superpowers',
+    description: 'A curated marketplace of taste-tested AI skills and prompts. No malware, no garbage, no bullshit.',
+    url: 'https://mochi.market',
+    siteName: 'Mochi',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mochi — Feed your AI superpowers',
+    description: 'A curated marketplace of taste-tested AI skills and prompts.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+  },
 };
 
 export default function RootLayout({
