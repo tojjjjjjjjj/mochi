@@ -10,7 +10,8 @@ export default function AboutPage() {
   return (
     <article style={{ maxWidth: 720, margin: "0 auto", padding: "32px 32px 120px" }}>
       <section style={{ marginBottom: 64 }}>
-        <h1 style={{ fontSize: 32, fontWeight: 800, letterSpacing: "-0.03em", color: "var(--t1)", lineHeight: 1.1, marginBottom: 12 }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: "var(--t3)", textTransform: "uppercase", letterSpacing: "0.02em", marginBottom: 12 }}>About</p>
+        <h1 className="font-display" style={{ fontSize: 36, fontWeight: 400, letterSpacing: "-0.02em", color: "var(--t1)", lineHeight: 1.1, marginBottom: 12, fontStyle: "italic" }}>
           Why mochi exists.
         </h1>
         <p style={{ fontSize: 17, color: "var(--t2)", lineHeight: 1.5 }}>

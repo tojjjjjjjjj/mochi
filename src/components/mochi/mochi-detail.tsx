@@ -31,9 +31,9 @@ export default function MochiDetail({ mochi }: MochiDetailProps) {
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px 60px" }}>
       <nav aria-label="Breadcrumb" className="flex items-center flex-wrap" style={{ gap: 6, padding: "16px 0 8px", fontSize: 14, color: "var(--t3)" }}>
-        <Link href="/menu" style={{ color: "var(--pink-text)", fontWeight: 500, textDecoration: "none", padding: "4px 0" }}>Menu</Link>
+        <Link href="/menu" style={{ color: "var(--pink-text)", fontWeight: 500, textDecoration: "none", padding: "10px 4px", minHeight: 44, display: "inline-flex", alignItems: "center" }}>Menu</Link>
         <span style={{ color: "var(--t4)" }} aria-hidden="true">/</span>
-        <Link href={`/flavor/${mochi.flavor}`} style={{ color: "var(--pink-text)", fontWeight: 500, textDecoration: "none", padding: "4px 0" }}>{flavor?.name ?? mochi.flavor}</Link>
+        <Link href={`/flavor/${mochi.flavor}`} style={{ color: "var(--pink-text)", fontWeight: 500, textDecoration: "none", padding: "10px 4px", minHeight: 44, display: "inline-flex", alignItems: "center" }}>{flavor?.name ?? mochi.flavor}</Link>
         <span style={{ color: "var(--t4)" }} aria-hidden="true">/</span>
         <span style={{ color: "var(--t2)", fontWeight: 500 }}>{mochi.title}</span>
       </nav>

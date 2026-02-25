@@ -1,7 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { Hero } from "@/components/home/hero";
 import { HowItWorks } from "@/components/home/how-it-works";
-import { CategoryPills } from "@/components/home/category-pills";
 import { FeaturedMochis } from "@/components/home/featured-mochis";
 import { FlavorGrid } from "@/components/home/flavor-grid";
 
@@ -29,7 +28,6 @@ export default async function Home() {
     <>
       <Hero />
       <HowItWorks />
-      <CategoryPills />
       <FeaturedMochis
         hottest={hotRes.data ?? []}
         houseSpecials={specialsRes.data ?? []}

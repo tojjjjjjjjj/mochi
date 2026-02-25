@@ -69,8 +69,9 @@ export default function RootLayout({
       >
         <ToastProvider>
           <LunchboxProvider>
+            <a href="#main-content" className="skip-to-content">Skip to content</a>
             <Header />
-            <main role="main">
+            <main id="main-content" role="main">
               {children}
             </main>
             <Footer />

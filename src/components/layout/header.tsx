@@ -18,6 +18,8 @@ export default function Header() {
   const { isDark, toggle } = useDarkMode();
   const { count: lunchboxCount } = useLunchbox();
   const [searchValue, setSearchValue] = useState("");
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const mobileInputRef = useRef<HTMLInputElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleSearchChange = useCallback(
@@ -39,6 +41,10 @@ export default function Header() {
       if (e.key === "Enter" && searchValue.trim()) {
         if (timerRef.current) clearTimeout(timerRef.current);
         router.push(`/menu?q=${encodeURIComponent(searchValue.trim())}`);
+        setMobileSearchOpen(false);
+      }
+      if (e.key === "Escape") {
+        setMobileSearchOpen(false);
       }
     },
     [router, searchValue]
@@ -49,12 +55,19 @@ export default function Header() {
     if (timerRef.current) clearTimeout(timerRef.current);
   };
 
+  const toggleMobileSearch = () => {
+    setMobileSearchOpen(!mobileSearchOpen);
+    if (!mobileSearchOpen) {
+      setTimeout(() => mobileInputRef.current?.focus(), 100);
+    }
+  };
+
   useEffect(() => {
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, []);
 
   return (
-    <header className="frosted-glass" style={{ position: "sticky", top: 0, zIndex: 100, height: 60 }}>
+    <header className="frosted-glass" style={{ position: "sticky", top: 0, zIndex: 100 }}>
       <nav role="navigation" aria-label="Main navigation" className="flex items-center" style={{ maxWidth: 1200, margin: "0 auto", height: 60, padding: "0 32px", gap: 24 }}>
         <Link href="/" className="flex items-center" style={{ gap: 10, textDecoration: "none", flexShrink: 0, padding: "8px 0" }}>
           <div className="nav-mark" aria-hidden="true" />
@@ -77,6 +90,7 @@ export default function Header() {
           })}
         </div>
 
+        {/* Desktop search */}
         <div className="hidden md:flex items-center" role="search" style={{ gap: 8, background: "var(--bg2)", borderRadius: 10, padding: "0 14px", height: 40, width: 240, flexShrink: 0, transition: "width 0.3s ease, box-shadow 0.2s ease" }}
           onFocus={(e) => { (e.currentTarget as HTMLElement).style.width = "320px"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 2px var(--focus)"; }}
           onBlur={(e) => { (e.currentTarget as HTMLElement).style.width = "240px"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
@@ -88,10 +102,64 @@ export default function Header() {
           )}
         </div>
 
+        {/* Mobile search toggle */}
+        <button
+          onClick={toggleMobileSearch}
+          aria-label="Search"
+          className="md:hidden cursor-pointer"
+          style={{
+            marginLeft: "auto", width: 44, height: 44,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: "none", border: "none", fontSize: 18, color: "var(--t2)",
+            borderRadius: 10,
+          }}
+        >
+          &#x1F50D;
+        </button>
+
         <button onClick={toggle} aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"} aria-pressed={isDark} className={`dark-toggle hidden md:block ${isDark ? "on" : ""}`} />
 
         <div className="hidden md:flex" style={{ width: 44, height: 44, borderRadius: "50%", background: "var(--gradient-primary)", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 800, color: "white", flexShrink: 0 }}>M</div>
       </nav>
+
+      {/* Mobile search bar — slides down below header */}
+      {mobileSearchOpen && (
+        <div
+          className="md:hidden"
+          role="search"
+          style={{
+            padding: "0 20px 12px",
+            background: "inherit",
+          }}
+        >
+          <div style={{
+            display: "flex", alignItems: "center", gap: 8,
+            background: "var(--bg2)", borderRadius: 10,
+            padding: "0 14px", height: 44,
+          }}>
+            <span style={{ fontSize: 14, color: "var(--t3)", flexShrink: 0 }} aria-hidden="true">&#x1F50D;</span>
+            <input
+              ref={mobileInputRef}
+              type="search"
+              value={searchValue}
+              onChange={handleSearchChange}
+              onKeyDown={handleSearchKeyDown}
+              placeholder="Search mochis..."
+              aria-label="Search mochis"
+              autoComplete="off"
+              style={{ flex: 1, background: "none", fontSize: 16, color: "var(--t1)", height: "100%", border: "none", outline: "none" }}
+            />
+            <button
+              onClick={() => { clearSearch(); setMobileSearchOpen(false); }}
+              aria-label="Close search"
+              className="cursor-pointer"
+              style={{ padding: 4, fontSize: 14, color: "var(--t3)", minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%", background: "none", border: "none" }}
+            >
+              &#x2715;
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
